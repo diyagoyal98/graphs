@@ -5,7 +5,23 @@
 using namespace std;
 const int n=1e3+10;
 vector<int>g[n];
+bool status[n];
 
+
+void dfs(int vertex)
+{
+    
+    status[vertex]=true;
+    //Take action on vertex after entering the vertex
+    for(int child:g[vertex])
+    {
+        if(status[child]) continue;
+        //Take action on child before entering the child node
+        dfs(child);
+        //Take action on child after existing chil node
+    }
+    //Take action on vertex before existing the vertex
+}
 
 int main()
 {
@@ -18,5 +34,16 @@ int main()
         g[v1].push_back(v2);
         g[v2].push_back(v1);
     }
+    int count=0;
+    for(int i=1;i<=n;i++)
+    {
+        if(status[i])
+        continue;
+        dfs(i);
+        count++;
+    }
+    cout<<"No of connected components "<<count;
     return 0;
 }
+
+//we hwve to apply dfs on unvisited node ......
